@@ -9,5 +9,30 @@
         android:title="@string/action_search"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/action_favourites"
+        android:icon="@drawable/ic_favorite_red"
+        android:orderInCategory="100"
+        android:title="@string/action_search"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_sortby1"
+        android:orderInCategory="100"
+        android:title="Sort 1"
+        app:showAsAction="never"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/action_sortby2"
+        android:orderInCategory="100"
+        android:title="Sort 2"
+        app:showAsAction="never"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/action_sortby3"
+        android:orderInCategory="100"
+        android:title="Sort 3"
+        app:showAsAction="never"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
 
 </menu>

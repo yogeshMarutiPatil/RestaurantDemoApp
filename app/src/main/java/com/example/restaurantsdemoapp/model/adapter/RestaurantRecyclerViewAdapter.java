@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurantsdemoapp.R;
 import com.example.restaurantsdemoapp.model.pojo.Restaurant;
+import com.example.restaurantsdemoapp.utils.StatusSorter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,13 +72,9 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
                 String charString = charSequence.toString();
                 if (charString == null || charString.length()==0) {
                     restaurantListFiltered=restaurantList;
-                    // filteredList.addAll(restaurantList);
                 } else {
                     String filterpattern= charSequence.toString().toLowerCase().trim();
-
                     for (Restaurant restaurant : restaurantList) {
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
                         if (restaurant.getName().toLowerCase().contains(filterpattern)) {
                             filteredList.add(restaurant);
                         }
@@ -93,10 +90,8 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-
-               // restaurantListFiltered.clear();
-                //restaurantListFiltered.addAll((List)filterResults.values);
                 restaurantListFiltered=(ArrayList<Restaurant>)filterResults.values;
+                restaurantListFiltered.sort(new StatusSorter());
                 notifyDataSetChanged();
             }
         };
@@ -170,16 +165,22 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
                 tv_rating.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_rating_background_red));
             }
 
-            if(restaurant.getStatus().equals("open"))
+            if(restaurant.getStatus().equalsIgnoreCase("A"))
             {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.green));
                 tv_opening_hour.setText("Open");
             }
 
-            else
+            else if(restaurant.getStatus().equalsIgnoreCase("C"))
             {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.red));
                 tv_opening_hour.setText("Closed");
+            }
+
+            else
+            {
+                tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.duskYellow));
+                tv_opening_hour.setText("Order Ahead");
             }
 
             /*if(restaurant.isIs_favourite())
