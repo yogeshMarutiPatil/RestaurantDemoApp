@@ -9,4 +9,5 @@ public class SortOptions implements Comparator<Restaurant> {
     public int compare(Restaurant o1, Restaurant o2) {
         return o1.getSortingValues().getRatingAverage().compareTo(o2.getSortingValues().getRatingAverage());
     }
+
 }

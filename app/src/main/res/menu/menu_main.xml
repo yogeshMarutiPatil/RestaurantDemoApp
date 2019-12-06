@@ -16,23 +16,48 @@
         android:title="@string/action_search"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/action_sortby1"
+        android:id="@+id/best_match"
         android:orderInCategory="100"
-        android:title="Sort 1"
+        android:title="Best Match "
         app:showAsAction="never"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
     <item
-        android:id="@+id/action_sortby2"
+        android:id="@+id/newest"
         android:orderInCategory="100"
-        android:title="Sort 2"
+        android:title="Newest"
         app:showAsAction="never"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
     <item
-        android:id="@+id/action_sortby3"
+        android:id="@+id/distance"
         android:orderInCategory="100"
-        android:title="Sort 3"
+        android:title="Distance"
         app:showAsAction="never"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/popularity"
+        android:orderInCategory="100"
+        android:title="Popularity"
+        app:showAsAction="never"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/average_product_price"
+        android:orderInCategory="100"
+        android:title="Average Product Price"
+        app:showAsAction="never"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/delivery_cost"
+        android:orderInCategory="100"
+        android:title="Delivery Cost"
+        app:showAsAction="never"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/minimum_cost"
+        android:orderInCategory="100"
+        android:title="Minimum Cost"
+        app:showAsAction="never"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
 
 
 </menu>

@@ -16,6 +16,8 @@ public class Restaurant {
     @Expose
     private SortingValues sortingValues;
 
+    private String sortedElement;
+
     public String getName() {
         return name;
     }
@@ -38,6 +40,14 @@ public class Restaurant {
 
     public void setSortingValues(SortingValues sortingValues) {
         this.sortingValues = sortingValues;
+    }
+
+    public String getSortedElement() {
+        return sortedElement;
+    }
+
+    public void setSortedElement(String sortedElement) {
+        this.sortedElement = sortedElement;
     }
 
 }

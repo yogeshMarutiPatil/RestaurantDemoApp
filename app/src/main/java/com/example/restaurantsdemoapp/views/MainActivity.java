@@ -26,6 +26,7 @@ import com.example.restaurantsdemoapp.utils.SortOptions;
 import com.example.restaurantsdemoapp.utils.StatusSorter;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RestaurantRecyclerViewAdapter.RestaurantAdapterListener {
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
                 restaurant.setStatus("B");
             }
         }
-
+        //restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getStatus()));
         restaurantList.sort(new StatusSorter());
 
         for (Restaurant res : restaurantList) {
@@ -131,16 +132,60 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
             case R.id.action_favourites:
                 return true;
 
-            case R.id.action_sortby1:
-                restaurantList.sort(new SortOptions());
+            case R.id.best_match:
+                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getBestMatch()));
+                for(Restaurant rest: restaurantList){
+                    rest.setSortedElement("Best Match Score: " + String.valueOf(rest.getSortingValues().getBestMatch()));
+                }
                 mAdapter.notifyDataSetChanged();
-
                 return true;
 
-            case R.id.action_sortby2:
+            case R.id.newest:
+                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getNewest()));
+                for(Restaurant rest: restaurantList){
+                    rest.setSortedElement("Newest Rating: " +String.valueOf(rest.getSortingValues().getNewest()));
+                }
+                mAdapter.notifyDataSetChanged();
                 return true;
 
-            case R.id.action_sortby3:
+            case R.id.distance:
+                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getDistance()));
+                for(Restaurant rest: restaurantList){
+                    rest.setSortedElement("Distance: " +String.valueOf(rest.getSortingValues().getDistance()));
+                }
+                mAdapter.notifyDataSetChanged();
+                return true;
+
+            case R.id.popularity:
+                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getPopularity()));
+                for(Restaurant rest: restaurantList){
+                    rest.setSortedElement("Popularity Score: " +String.valueOf(rest.getSortingValues().getPopularity()));
+                }
+                mAdapter.notifyDataSetChanged();
+                return true;
+
+            case R.id.average_product_price:
+                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getAverageProductPrice()));
+                for(Restaurant rest: restaurantList){
+                    rest.setSortedElement("Average Product Price: " +String.valueOf(rest.getSortingValues().getAverageProductPrice()));
+                }
+                mAdapter.notifyDataSetChanged();
+                return true;
+
+            case R.id.delivery_cost:
+                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getDeliveryCosts()));
+                for(Restaurant rest: restaurantList){
+                    rest.setSortedElement("Delivery Cost: " +String.valueOf(rest.getSortingValues().getDeliveryCosts()));
+                }
+                mAdapter.notifyDataSetChanged();
+                return true;
+
+            case R.id.minimum_cost:
+                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getMinCost()));
+                for(Restaurant rest: restaurantList){
+                    rest.setSortedElement("Minimum Cost: " +String.valueOf(rest.getSortingValues().getMinCost()));
+                }
+                mAdapter.notifyDataSetChanged();
                 return true;
         }
 

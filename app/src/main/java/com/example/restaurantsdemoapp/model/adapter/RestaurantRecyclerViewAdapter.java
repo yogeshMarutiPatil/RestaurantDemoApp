@@ -71,6 +71,9 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
                 List<Restaurant> filteredList = new ArrayList<>();
                 String charString = charSequence.toString();
                 if (charString == null || charString.length()==0) {
+                    for(Restaurant rest: restaurantList){
+                        rest.setSortedElement(null);
+                    }
                     restaurantListFiltered=restaurantList;
                 } else {
                     String filterpattern= charSequence.toString().toLowerCase().trim();
@@ -78,6 +81,10 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
                         if (restaurant.getName().toLowerCase().contains(filterpattern)) {
                             filteredList.add(restaurant);
                         }
+                    }
+
+                    for(Restaurant rest: restaurantList){
+                        rest.setSortedElement(null);
                     }
 
                     restaurantListFiltered = filteredList;
@@ -88,6 +95,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
                 return filterResults;
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 restaurantListFiltered=(ArrayList<Restaurant>)filterResults.values;
@@ -103,6 +111,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
         TextView tv_name;
         TextView tv_rating;
         TextView tv_opening_hour;
+        TextView tv_sorted_element;
         ImageButton ib_favourite;
 
         public ViewHolder(View itemView)
@@ -114,6 +123,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
             tv_name = itemView.findViewById(R.id.tvName);
             tv_rating = itemView.findViewById(R.id.tvRating);
             tv_opening_hour = itemView.findViewById(R.id.tvOpeningHour);
+            tv_sorted_element = itemView.findViewById(R.id.tvSortedElement);
             ib_favourite = itemView.findViewById(R.id.ibFavorite);
 
             ib_favourite.setOnClickListener(onFavouriteClickListener);
@@ -149,6 +159,8 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
         {
             tv_name.setText(restaurant.getName());
             tv_rating.setText(String.valueOf(restaurant.getSortingValues().getRatingAverage()));
+
+            tv_sorted_element.setText(restaurant.getSortedElement());
 
             if(restaurant.getSortingValues().getRatingAverage() >= 3)
             {

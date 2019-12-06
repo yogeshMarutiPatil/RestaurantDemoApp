@@ -48,6 +48,16 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/tvSortedElement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/myTextSecondaryColor"
+            android:layout_below="@id/tvOpeningHour"
+            android:text="Open"
+            android:maxLines="1"
+            android:textSize="12sp" />
+
+        <TextView
             android:id="@+id/tvRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
