@@ -16,8 +16,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurantsdemoapp.R;
+import com.example.restaurantsdemoapp.entity.FavoriteList;
 import com.example.restaurantsdemoapp.model.pojo.Restaurant;
 import com.example.restaurantsdemoapp.utils.StatusSorter;
+import com.example.restaurantsdemoapp.views.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,13 +137,20 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
             public void onClick(View v)
             {
                 int index = (int) v.getTag();
-                listener.onRestaurantSelected(restaurantListFiltered.get(getAdapterPosition()));
-                switch (v.getId())
-                {
-                    case R.id.ibFavorite:
+                FavoriteList favoriteList = new FavoriteList();
 
-                        clickListener.onFavoriteClick(v, index);
-                        break;
+                favoriteList.setName(restaurantList.get(index).getName());
+                favoriteList.setStatus(restaurantList.get(index).getStatus());
+                favoriteList.setSortingValues(restaurantList.get(index).getSortingValues());
+
+                if (MainActivity.favoriteDatabase.favoriteDao().isFavorite(restaurantList.get(index).getName()) != 1) {
+                    ib_favourite.setImageResource(R.drawable.ic_favorite_red);
+                    MainActivity.favoriteDatabase.favoriteDao().addData(favoriteList);
+
+                } else {
+                    ib_favourite.setImageResource(R.drawable.ic_favorite_grey);
+                    MainActivity.favoriteDatabase.favoriteDao().delete(favoriteList);
+
                 }
             }
         };
@@ -155,55 +164,36 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
 
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-        private void bindData(Restaurant restaurant)
-        {
+        private void bindData(Restaurant restaurant) {
             tv_name.setText(restaurant.getName());
             tv_rating.setText(String.valueOf(restaurant.getSortingValues().getRatingAverage()));
 
             tv_sorted_element.setText(restaurant.getSortedElement());
 
-            if(restaurant.getSortingValues().getRatingAverage() >= 3)
-            {
+            if (restaurant.getSortingValues().getRatingAverage() >= 3) {
                 tv_rating.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_rating_background_green));
-            }
-
-            else if(restaurant.getSortingValues().getRatingAverage() >= 2)
-            {
+            } else if (restaurant.getSortingValues().getRatingAverage() >= 2) {
                 tv_rating.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_rating_background_yellow));
-            }
-
-            else
-            {
+            } else {
                 tv_rating.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_rating_background_red));
             }
 
-            if(restaurant.getStatus().equalsIgnoreCase("A"))
-            {
+            if (restaurant.getStatus().equalsIgnoreCase("A")) {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.green));
                 tv_opening_hour.setText("Open");
-            }
-
-            else if(restaurant.getStatus().equalsIgnoreCase("C"))
-            {
+            } else if (restaurant.getStatus().equalsIgnoreCase("C")) {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.red));
                 tv_opening_hour.setText("Closed");
-            }
-
-            else
-            {
+            } else {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.duskYellow));
                 tv_opening_hour.setText("Order Ahead");
             }
 
-            /*if(restaurant.isIs_favourite())
-            {
+            if (MainActivity.favoriteDatabase.favoriteDao().isFavorite(restaurant.getName()) == 1)
                 ib_favourite.setImageResource(R.drawable.ic_favorite_red);
-            }
-
             else
-            {
                 ib_favourite.setImageResource(R.drawable.ic_favorite_grey);
-            }*/
+
 
         }
 
@@ -219,9 +209,4 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
         void onFavoriteClick(View view, int position);
     }
 
-
-    public void SetOnItemClickListener(final OnItemClickListener itemClickListener)
-    {
-        this.clickListener = itemClickListener;
-    }
 }

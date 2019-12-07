@@ -7,9 +7,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.restaurantsdemoapp.R;
 import com.example.restaurantsdemoapp.controller.RestaurantsJsonResponse;
+import com.example.restaurantsdemoapp.db.FavoriteDatabase;
 import com.example.restaurantsdemoapp.model.adapter.RestaurantRecyclerViewAdapter;
 import com.example.restaurantsdemoapp.model.pojo.Restaurant;
 import com.example.restaurantsdemoapp.model.pojo.Restaurants;
@@ -26,6 +30,7 @@ import com.example.restaurantsdemoapp.utils.SortOptions;
 import com.example.restaurantsdemoapp.utils.StatusSorter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -34,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
     private RecyclerView mRecyclerView;
     private RestaurantRecyclerViewAdapter mAdapter;
     private List<Restaurant> restaurantList = new ArrayList<>();
-    private androidx.appcompat.widget.SearchView searchView;
+    private androidx.appcompat.widget.SearchView searchView ;
+    public static FavoriteDatabase favoriteDatabase;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -43,13 +49,17 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),
+                R.drawable.sort);
+        toolbar.setOverflowIcon(drawable);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setTitle("Restaurants");
 
         setUpAdapter();
-        restaurantParsedResponse();
 
+        favoriteDatabase= Room.databaseBuilder(getApplicationContext(),FavoriteDatabase.class,"myfavdb").allowMainThreadQueries().build();
+        restaurantParsedResponse();
     }
 
     private void setUpAdapter() {
@@ -84,11 +94,6 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
         }
         //restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getStatus()));
         restaurantList.sort(new StatusSorter());
-
-        for (Restaurant res : restaurantList) {
-            Log.d("RESTAURANTS", res.getStatus());
-        }
-
         mAdapter.notifyDataSetChanged();
     }
 
@@ -130,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
                 return true;
 
             case R.id.action_favourites:
+                startActivity(new Intent(MainActivity.this,FavouriteListActivity.class));
                 return true;
 
             case R.id.best_match:
@@ -187,11 +193,6 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
                 }
                 mAdapter.notifyDataSetChanged();
                 return true;
-        }
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            return true;
         }
 
         return super.onOptionsItemSelected(item);
