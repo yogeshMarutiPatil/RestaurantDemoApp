@@ -24,27 +24,24 @@ import com.example.restaurantsdemoapp.views.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<RestaurantRecyclerViewAdapter.ViewHolder> implements Filterable
-{
+public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<RestaurantRecyclerViewAdapter.ViewHolder> implements Filterable {
     private OnItemClickListener clickListener;
     private Context context;
     private List<Restaurant> restaurantList;
     private List<Restaurant> restaurantListFiltered;
     private RestaurantAdapterListener listener;
 
-    public RestaurantRecyclerViewAdapter(Context context, List<Restaurant> restaurantList, RestaurantAdapterListener listener)
-    {
+    public RestaurantRecyclerViewAdapter(Context context, List<Restaurant> restaurantList, RestaurantAdapterListener listener) {
         super();
         this.restaurantList = restaurantList;
-        this.restaurantListFiltered=restaurantList;
+        this.restaurantListFiltered = restaurantList;
         this.context = context;
-        this.listener=listener;
+        this.listener = listener;
     }
 
 
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
-    {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_layout, viewGroup, false);
         return new ViewHolder(v);
     }
@@ -52,16 +49,14 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i)
-    {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         viewHolder.bindData(restaurantListFiltered.get(i));
         viewHolder.ib_favourite.setTag(i);
     }
 
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return restaurantListFiltered.size();
     }
 
@@ -72,20 +67,20 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
             protected FilterResults performFiltering(CharSequence charSequence) {
                 List<Restaurant> filteredList = new ArrayList<>();
                 String charString = charSequence.toString();
-                if (charString == null || charString.length()==0) {
-                    for(Restaurant rest: restaurantList){
+                if (charString == null || charString.length() == 0) {
+                    for (Restaurant rest : restaurantList) {
                         rest.setSortedElement(null);
                     }
-                    restaurantListFiltered=restaurantList;
+                    restaurantListFiltered = restaurantList;
                 } else {
-                    String filterpattern= charSequence.toString().toLowerCase().trim();
+                    String filterpattern = charSequence.toString().toLowerCase().trim();
                     for (Restaurant restaurant : restaurantList) {
                         if (restaurant.getName().toLowerCase().contains(filterpattern)) {
                             filteredList.add(restaurant);
                         }
                     }
 
-                    for(Restaurant rest: restaurantList){
+                    for (Restaurant rest : restaurantList) {
                         rest.setSortedElement(null);
                     }
 
@@ -100,7 +95,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                restaurantListFiltered=(ArrayList<Restaurant>)filterResults.values;
+                restaurantListFiltered = (ArrayList<Restaurant>) filterResults.values;
                 restaurantListFiltered.sort(new StatusSorter());
                 notifyDataSetChanged();
             }
@@ -108,16 +103,14 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
-    {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tv_name;
         TextView tv_rating;
         TextView tv_opening_hour;
         TextView tv_sorted_element;
         ImageButton ib_favourite;
 
-        public ViewHolder(View itemView)
-        {
+        public ViewHolder(View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(this);
@@ -134,8 +127,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
         private View.OnClickListener onFavouriteClickListener = new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 int index = (int) v.getTag();
                 FavoriteList favoriteList = new FavoriteList();
 
@@ -157,8 +149,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
 
 
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             //clickListener.onItemClick(v, getAdapterPosition());
         }
 
@@ -203,9 +194,9 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
         void onRestaurantSelected(Restaurant restaurant);
     }
 
-    public interface OnItemClickListener
-    {
+    public interface OnItemClickListener {
         void onItemClick(View view, int position);
+
         void onFavoriteClick(View view, int position);
     }
 

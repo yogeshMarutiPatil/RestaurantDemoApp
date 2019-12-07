@@ -34,7 +34,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fav_recycler_view_layout,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fav_recycler_view_layout, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -83,7 +83,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         private void bindData(FavoriteList favoriteList) {
-            Log.d("FAVO LIST",favoriteList.getName());
+            Log.d("FAVO LIST", favoriteList.getName());
             tv_name.setText(favoriteList.getName());
             tv_rating.setText(String.valueOf(favoriteList.getSortingValues().getRatingAverage()));
 

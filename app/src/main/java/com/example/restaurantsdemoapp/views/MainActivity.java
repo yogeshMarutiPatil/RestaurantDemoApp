@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
     private RecyclerView mRecyclerView;
     private RestaurantRecyclerViewAdapter mAdapter;
     private List<Restaurant> restaurantList = new ArrayList<>();
-    private androidx.appcompat.widget.SearchView searchView ;
+    private androidx.appcompat.widget.SearchView searchView;
     public static FavoriteDatabase favoriteDatabase;
 
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
 
         setUpAdapter();
 
-        favoriteDatabase= Room.databaseBuilder(getApplicationContext(),FavoriteDatabase.class,"myfavdb").allowMainThreadQueries().build();
+        favoriteDatabase = Room.databaseBuilder(getApplicationContext(), FavoriteDatabase.class, "myfavdb").allowMainThreadQueries().build();
         restaurantParsedResponse();
     }
 
@@ -135,12 +135,12 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
                 return true;
 
             case R.id.action_favourites:
-                startActivity(new Intent(MainActivity.this,FavouriteListActivity.class));
+                startActivity(new Intent(MainActivity.this, FavouriteListActivity.class));
                 return true;
 
             case R.id.best_match:
                 restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getBestMatch()));
-                for(Restaurant rest: restaurantList){
+                for (Restaurant rest : restaurantList) {
                     rest.setSortedElement("Best Match Score: " + String.valueOf(rest.getSortingValues().getBestMatch()));
                 }
                 mAdapter.notifyDataSetChanged();
@@ -148,48 +148,48 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
 
             case R.id.newest:
                 restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getNewest()));
-                for(Restaurant rest: restaurantList){
-                    rest.setSortedElement("Newest Rating: " +String.valueOf(rest.getSortingValues().getNewest()));
+                for (Restaurant rest : restaurantList) {
+                    rest.setSortedElement("Newest Rating: " + String.valueOf(rest.getSortingValues().getNewest()));
                 }
                 mAdapter.notifyDataSetChanged();
                 return true;
 
             case R.id.distance:
                 restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getDistance()));
-                for(Restaurant rest: restaurantList){
-                    rest.setSortedElement("Distance: " +String.valueOf(rest.getSortingValues().getDistance()));
+                for (Restaurant rest : restaurantList) {
+                    rest.setSortedElement("Distance: " + String.valueOf(rest.getSortingValues().getDistance()));
                 }
                 mAdapter.notifyDataSetChanged();
                 return true;
 
             case R.id.popularity:
                 restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getPopularity()));
-                for(Restaurant rest: restaurantList){
-                    rest.setSortedElement("Popularity Score: " +String.valueOf(rest.getSortingValues().getPopularity()));
+                for (Restaurant rest : restaurantList) {
+                    rest.setSortedElement("Popularity Score: " + String.valueOf(rest.getSortingValues().getPopularity()));
                 }
                 mAdapter.notifyDataSetChanged();
                 return true;
 
             case R.id.average_product_price:
                 restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getAverageProductPrice()));
-                for(Restaurant rest: restaurantList){
-                    rest.setSortedElement("Average Product Price: " +String.valueOf(rest.getSortingValues().getAverageProductPrice()));
+                for (Restaurant rest : restaurantList) {
+                    rest.setSortedElement("Average Product Price: " + String.valueOf(rest.getSortingValues().getAverageProductPrice()));
                 }
                 mAdapter.notifyDataSetChanged();
                 return true;
 
             case R.id.delivery_cost:
                 restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getDeliveryCosts()));
-                for(Restaurant rest: restaurantList){
-                    rest.setSortedElement("Delivery Cost: " +String.valueOf(rest.getSortingValues().getDeliveryCosts()));
+                for (Restaurant rest : restaurantList) {
+                    rest.setSortedElement("Delivery Cost: " + String.valueOf(rest.getSortingValues().getDeliveryCosts()));
                 }
                 mAdapter.notifyDataSetChanged();
                 return true;
 
             case R.id.minimum_cost:
                 restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getMinCost()));
-                for(Restaurant rest: restaurantList){
-                    rest.setSortedElement("Minimum Cost: " +String.valueOf(rest.getSortingValues().getMinCost()));
+                for (Restaurant rest : restaurantList) {
+                    rest.setSortedElement("Minimum Cost: " + String.valueOf(rest.getSortingValues().getMinCost()));
                 }
                 mAdapter.notifyDataSetChanged();
                 return true;

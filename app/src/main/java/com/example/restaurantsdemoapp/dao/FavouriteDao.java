@@ -8,19 +8,20 @@ import androidx.room.Query;
 import com.example.restaurantsdemoapp.entity.FavoriteList;
 
 import java.util.List;
+
 @Dao
-public interface FavouriteDao{
-        @Insert
-        public void addData(FavoriteList favoriteList);
+public interface FavouriteDao {
+    @Insert
+    public void addData(FavoriteList favoriteList);
 
-        @Query("select * from favoritelist")
-        public List<FavoriteList> getFavoriteData();
+    @Query("select * from favoritelist")
+    public List<FavoriteList> getFavoriteData();
 
-        @Query("SELECT EXISTS (SELECT 1 FROM favoritelist WHERE name=:name)")
-        public int isFavorite(String name);
+    @Query("SELECT EXISTS (SELECT 1 FROM favoritelist WHERE name=:name)")
+    public int isFavorite(String name);
 
-        @Delete
-        public void delete(FavoriteList favoriteList);
+    @Delete
+    public void delete(FavoriteList favoriteList);
 
 
 }

@@ -9,7 +9,7 @@ import androidx.room.TypeConverters;
 import com.example.restaurantsdemoapp.model.pojo.SortingValues;
 import com.example.restaurantsdemoapp.utils.DataConvertor;
 
-@Entity(tableName="favoritelist")
+@Entity(tableName = "favoritelist")
 public class FavoriteList {
 
     @PrimaryKey
