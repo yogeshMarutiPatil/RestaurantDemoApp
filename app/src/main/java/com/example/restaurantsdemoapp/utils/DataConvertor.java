@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.lang.reflect.Type;
 
 public class DataConvertor implements Serializable {
-    @TypeConverter // note this annotation
+    @TypeConverter
     public String fromOptionValuesList(SortingValues optionValues) {
         if (optionValues == null) {
             return (null);
@@ -22,7 +22,7 @@ public class DataConvertor implements Serializable {
         return json;
     }
 
-    @TypeConverter // note this annotation
+    @TypeConverter
     public SortingValues toOptionValuesList(String optionValuesString) {
         if (optionValuesString == null) {
             return (null);

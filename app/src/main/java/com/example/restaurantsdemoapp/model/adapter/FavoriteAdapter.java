@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,10 +14,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurantsdemoapp.R;
-import com.example.restaurantsdemoapp.entity.FavoriteList;
-import com.example.restaurantsdemoapp.model.pojo.Restaurant;
+import com.example.restaurantsdemoapp.roomdb.dao.entity.FavoriteList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {

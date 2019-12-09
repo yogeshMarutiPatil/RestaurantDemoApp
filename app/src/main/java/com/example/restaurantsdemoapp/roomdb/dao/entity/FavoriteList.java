@@ -1,4 +1,4 @@
-package com.example.restaurantsdemoapp.entity;
+package com.example.restaurantsdemoapp.roomdb.dao.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

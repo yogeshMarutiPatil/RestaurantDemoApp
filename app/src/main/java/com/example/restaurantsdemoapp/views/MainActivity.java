@@ -11,31 +11,26 @@ import androidx.room.Room;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.restaurantsdemoapp.R;
-import com.example.restaurantsdemoapp.controller.RestaurantsJsonResponse;
-import com.example.restaurantsdemoapp.db.FavoriteDatabase;
+import com.example.restaurantsdemoapp.contract.MainActivityContract;
+import com.example.restaurantsdemoapp.roomdb.dao.db.FavoriteDatabase;
 import com.example.restaurantsdemoapp.model.adapter.RestaurantRecyclerViewAdapter;
 import com.example.restaurantsdemoapp.model.pojo.Restaurant;
-import com.example.restaurantsdemoapp.model.pojo.Restaurants;
-import com.example.restaurantsdemoapp.utils.SortOptions;
-import com.example.restaurantsdemoapp.utils.StatusSorter;
+import com.example.restaurantsdemoapp.presenters.MainViewPresenters;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements RestaurantRecyclerViewAdapter.RestaurantAdapterListener {
+public class MainActivity extends AppCompatActivity implements MainActivityContract.View {
 
+    MainActivityContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
     private RestaurantRecyclerViewAdapter mAdapter;
     private List<Restaurant> restaurantList = new ArrayList<>();
@@ -48,6 +43,14 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mPresenter = new MainViewPresenters(this);
+        getRestaurantData();
+        favoriteDatabase = Room.databaseBuilder(getApplicationContext(), FavoriteDatabase.class, "myfavdb").allowMainThreadQueries().build();
+        //restaurantParsedResponse();
+    }
+
+    @Override
+    public void setupUI() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),
                 R.drawable.sort);
@@ -55,47 +58,24 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setTitle("Restaurants");
-
-        setUpAdapter();
-
-        favoriteDatabase = Room.databaseBuilder(getApplicationContext(), FavoriteDatabase.class, "myfavdb").allowMainThreadQueries().build();
-        restaurantParsedResponse();
-    }
-
-    private void setUpAdapter() {
-        mAdapter = new RestaurantRecyclerViewAdapter(MainActivity.this, restaurantList, this);
+        mAdapter = new RestaurantRecyclerViewAdapter(MainActivity.this, restaurantList);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(false);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void restaurantParsedResponse() {
-        String jsonResponse = RestaurantsJsonResponse.loadJSONFromAsset(this);
-        Restaurants restaurantsJsonResponse = new RestaurantsJsonResponse().parseJSON(jsonResponse);
-        restaurantList.clear();
-        restaurantList.addAll(restaurantsJsonResponse.getRestaurants());
-
-        for (Restaurant restaurant : restaurantList) {
-            if (restaurant.getStatus().equals("open")) {
-                restaurant.setStatus("A");
-            } else if (restaurant.getStatus().equals("closed")) {
-                restaurant.setStatus("C");
-            } else {
-                restaurant.setStatus("B");
-            }
-        }
-        //restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getStatus()));
-        restaurantList.sort(new StatusSorter());
+    @Override
+    public void getRestaurantData() {
+        restaurantList = mPresenter.getRestaurantData(this, restaurantList);
+        restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getStatus()));
         mAdapter.notifyDataSetChanged();
     }
+
 
 
     @Override
@@ -125,77 +105,13 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        switch (id) {
-            case R.id.action_search:
-                return true;
-
-            case R.id.action_favourites:
-                startActivity(new Intent(MainActivity.this, FavouriteListActivity.class));
-                return true;
-
-            case R.id.best_match:
-                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getBestMatch()));
-                for (Restaurant rest : restaurantList) {
-                    rest.setSortedElement("Best Match Score: " + String.valueOf(rest.getSortingValues().getBestMatch()));
-                }
-                mAdapter.notifyDataSetChanged();
-                return true;
-
-            case R.id.newest:
-                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getNewest()));
-                for (Restaurant rest : restaurantList) {
-                    rest.setSortedElement("Newest Rating: " + String.valueOf(rest.getSortingValues().getNewest()));
-                }
-                mAdapter.notifyDataSetChanged();
-                return true;
-
-            case R.id.distance:
-                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getDistance()));
-                for (Restaurant rest : restaurantList) {
-                    rest.setSortedElement("Distance: " + String.valueOf(rest.getSortingValues().getDistance()));
-                }
-                mAdapter.notifyDataSetChanged();
-                return true;
-
-            case R.id.popularity:
-                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getPopularity()));
-                for (Restaurant rest : restaurantList) {
-                    rest.setSortedElement("Popularity Score: " + String.valueOf(rest.getSortingValues().getPopularity()));
-                }
-                mAdapter.notifyDataSetChanged();
-                return true;
-
-            case R.id.average_product_price:
-                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getAverageProductPrice()));
-                for (Restaurant rest : restaurantList) {
-                    rest.setSortedElement("Average Product Price: " + String.valueOf(rest.getSortingValues().getAverageProductPrice()));
-                }
-                mAdapter.notifyDataSetChanged();
-                return true;
-
-            case R.id.delivery_cost:
-                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getDeliveryCosts()));
-                for (Restaurant rest : restaurantList) {
-                    rest.setSortedElement("Delivery Cost: " + String.valueOf(rest.getSortingValues().getDeliveryCosts()));
-                }
-                mAdapter.notifyDataSetChanged();
-                return true;
-
-            case R.id.minimum_cost:
-                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getMinCost()));
-                for (Restaurant rest : restaurantList) {
-                    rest.setSortedElement("Minimum Cost: " + String.valueOf(rest.getSortingValues().getMinCost()));
-                }
-                mAdapter.notifyDataSetChanged();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        //return mPresenter.sortingOption(id, this, restaurantList, mAdapter);
+        boolean temp = mPresenter.sortingOption(id, this, restaurantList, mAdapter);
+        if(temp)
+            return temp;
+        else
+            return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -208,8 +124,5 @@ public class MainActivity extends AppCompatActivity implements RestaurantRecycle
         super.onBackPressed();
     }
 
-    @Override
-    public void onRestaurantSelected(Restaurant restaurant) {
-        Toast.makeText(getApplicationContext(), "Selected: " + restaurant.getName() + ", " + restaurant.getStatus(), Toast.LENGTH_LONG).show();
-    }
+
 }

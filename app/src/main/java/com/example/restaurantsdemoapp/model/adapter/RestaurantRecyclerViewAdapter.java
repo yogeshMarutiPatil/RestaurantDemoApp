@@ -16,12 +16,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.restaurantsdemoapp.R;
-import com.example.restaurantsdemoapp.entity.FavoriteList;
+import com.example.restaurantsdemoapp.roomdb.dao.entity.FavoriteList;
 import com.example.restaurantsdemoapp.model.pojo.Restaurant;
-import com.example.restaurantsdemoapp.utils.StatusSorter;
 import com.example.restaurantsdemoapp.views.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<RestaurantRecyclerViewAdapter.ViewHolder> implements Filterable {
@@ -29,14 +29,13 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
     private Context context;
     private List<Restaurant> restaurantList;
     private List<Restaurant> restaurantListFiltered;
-    private RestaurantAdapterListener listener;
 
-    public RestaurantRecyclerViewAdapter(Context context, List<Restaurant> restaurantList, RestaurantAdapterListener listener) {
+    public RestaurantRecyclerViewAdapter(Context context, List<Restaurant> restaurantList) {
         super();
         this.restaurantList = restaurantList;
         this.restaurantListFiltered = restaurantList;
         this.context = context;
-        this.listener = listener;
+
     }
 
 
@@ -96,7 +95,7 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 restaurantListFiltered = (ArrayList<Restaurant>) filterResults.values;
-                restaurantListFiltered.sort(new StatusSorter());
+                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getStatus()));
                 notifyDataSetChanged();
             }
         };
@@ -190,9 +189,6 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
 
     }
 
-    public interface RestaurantAdapterListener {
-        void onRestaurantSelected(Restaurant restaurant);
-    }
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);

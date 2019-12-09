@@ -1,11 +1,11 @@
-package com.example.restaurantsdemoapp.dao;
+package com.example.restaurantsdemoapp.roomdb.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.restaurantsdemoapp.entity.FavoriteList;
+import com.example.restaurantsdemoapp.roomdb.dao.entity.FavoriteList;
 
 import java.util.List;
 
