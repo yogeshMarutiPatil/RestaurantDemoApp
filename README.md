@@ -22,9 +22,9 @@ Steps to run the project
 
 ###ScreenShots:
 
-![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp.jpg)
+![ScreenShot](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp.jpg)
 
-![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp1.jpg)
+![ScreenShot](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp1.jpg)
 
 
 
