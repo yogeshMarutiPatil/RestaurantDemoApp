@@ -22,7 +22,7 @@ Steps to run the project
 
 ###ScreenShots:
 
-![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/Home_Screen.png)
+![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/Home_Screen.png?raw=true "Home Screen")
 
 ![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/Serach_Bar.png)
 
