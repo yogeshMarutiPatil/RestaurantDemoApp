@@ -22,5 +22,20 @@ Steps to run the project
 
 ###ScreenShots:
 
+![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/Home_Screen.png)
+
+![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/Serach_Bar.png)
+
+![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/Sorting_Options.png)
+
+![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/SortedList.png)
+
+![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/Favourites_List.png)
+
+![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/SwipeToDelete.png)
+
+![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/SwipeToDeleteUndo.png)
+
+
 
 
