@@ -22,6 +22,8 @@ Steps to run the project
 
 ###ScreenShots:
 
+![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp.jpg)
+
 
 
 
