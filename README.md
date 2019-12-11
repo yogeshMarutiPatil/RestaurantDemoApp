@@ -37,9 +37,9 @@ Steps to run the project
 
 ###ScreenShots:
 
-![ScreenShot](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp.jpg| width=100)
+![](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp.jpg| width=100)
 
-![ScreenShot](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp1.jpg| width=100)
+![](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp1.jpg| width=100)
 
 
 
