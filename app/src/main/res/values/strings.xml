@@ -2,4 +2,18 @@
     <string name="app_name">RestaurantsDemoApp</string>
     <string name="action_search">Search</string>
     <string name="search_hint">Type Restaurant name…</string>
+    <string name="fav_restaurant">Favourite Restaurants</string>
+    <string name="fav_restaurant_removed">Favourite restaurant removed</string>
+    <string name="Undo">Undo</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="open">Open</string>
+    <string name="closed">Closed</string>
+    <string name="order_ahead">Order Ahead</string>
+    <string name="best_match_score">Best Match Score</string>
+    <string name="newest_rating">Newest Rating </string>
+    <string name="distance">Distance </string>
+    <string name="popularity_score">Popularity Score </string>
+    <string name="avg_product_price">Average Product Price </string>
+    <string name="deliver_cost">Delivery Cost </string>
+    <string name="minimum_cost">Minimum Cost </string>
 </resources>

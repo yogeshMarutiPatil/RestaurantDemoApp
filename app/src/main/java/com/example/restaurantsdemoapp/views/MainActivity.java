@@ -12,6 +12,7 @@ import androidx.room.Room;
 import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -45,9 +46,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         setContentView(R.layout.activity_main);
         mPresenter = new MainViewPresenters(this);
         getRestaurantData();
-        favoriteDatabase = Room.databaseBuilder(getApplicationContext(), FavoriteDatabase.class, "myfavdb").allowMainThreadQueries().build();
-        //restaurantParsedResponse();
+        favoriteDatabase= FavoriteDatabase.getInstance(getApplicationContext());
     }
+
+
+
 
     @Override
     public void setupUI() {
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         toolbar.setOverflowIcon(drawable);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setTitle("Restaurants");
+        getSupportActionBar().setTitle(R.string.restaurants);
         mAdapter = new RestaurantRecyclerViewAdapter(MainActivity.this, restaurantList);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(false);

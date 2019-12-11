@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -43,8 +44,6 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_list);
         favPresenter = new FavouriteViewPresenters(this);
-
-
         getFavData();
         enableSwipeToDeleteAndUndo();
     }
@@ -57,7 +56,7 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
         toolbar.setOverflowIcon(drawable);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Favourite Restaurants");
+        getSupportActionBar().setTitle(R.string.fav_restaurant);
         rv = (RecyclerView) findViewById(R.id.fav_recycler_view);
         coordinatorLayout = findViewById(R.id.coordinatedLayout);
         rv.setHasFixedSize(true);
@@ -67,6 +66,7 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
         rv.setAdapter(adapter);
 
     }
+
 
     private void enableSwipeToDeleteAndUndo() {
         SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(this) {
@@ -82,8 +82,8 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
 
 
                 Snackbar snackbar = Snackbar
-                        .make(coordinatorLayout, "Favourite restaurant removed", Snackbar.LENGTH_LONG);
-                snackbar.setAction("UNDO", new View.OnClickListener() {
+                        .make(coordinatorLayout,R.string.fav_restaurant_removed, Snackbar.LENGTH_LONG);
+                snackbar.setAction(R.string.Undo, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -128,6 +128,8 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
         else
             return super.onOptionsItemSelected(item);
     }
+
+
 
 
 }

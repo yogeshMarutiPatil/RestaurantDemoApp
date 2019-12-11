@@ -55,7 +55,8 @@ public class RestaurantModel implements MainActivityContract.Model {
                 return true;
 
             case R.id.best_match:
-                restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getBestMatch()));
+                restaurantList.sort(Comparator.comparingDouble(restaurant -> restaurant.getSortingValues().getBestMatch()));
+
                 for (Restaurant rest : restaurantList) {
                     rest.setSortedElement("Best Match Score: " + String.valueOf(rest.getSortingValues().getBestMatch()));
                 }
@@ -64,6 +65,7 @@ public class RestaurantModel implements MainActivityContract.Model {
 
             case R.id.newest:
                 restaurantList.sort(Comparator.comparing(restaurant -> restaurant.getSortingValues().getNewest()));
+
                 for (Restaurant rest : restaurantList) {
                     rest.setSortedElement("Newest Rating: " + String.valueOf(rest.getSortingValues().getNewest()));
                 }

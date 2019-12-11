@@ -170,13 +170,13 @@ public class RestaurantRecyclerViewAdapter extends RecyclerView.Adapter<Restaura
 
             if (restaurant.getStatus().equalsIgnoreCase("A")) {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.green));
-                tv_opening_hour.setText("Open");
+                tv_opening_hour.setText(R.string.open);
             } else if (restaurant.getStatus().equalsIgnoreCase("C")) {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.red));
-                tv_opening_hour.setText("Closed");
+                tv_opening_hour.setText(R.string.closed);
             } else {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.duskYellow));
-                tv_opening_hour.setText("Order Ahead");
+                tv_opening_hour.setText(R.string.order_ahead);
             }
 
             if (MainActivity.favoriteDatabase.favoriteDao().isFavorite(restaurant.getName()) == 1)

@@ -80,7 +80,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         private void bindData(FavoriteList favoriteList) {
-            Log.d("FAVO LIST", favoriteList.getName());
             tv_name.setText(favoriteList.getName());
             tv_rating.setText(String.valueOf(favoriteList.getSortingValues().getRatingAverage()));
 
@@ -96,13 +95,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
             if (favoriteList.getStatus().equalsIgnoreCase("A")) {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.green));
-                tv_opening_hour.setText("Open");
+                tv_opening_hour.setText(R.string.open);
             } else if (favoriteList.getStatus().equalsIgnoreCase("C")) {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.red));
-                tv_opening_hour.setText("Closed");
+                tv_opening_hour.setText(R.string.closed);
             } else {
                 tv_opening_hour.setTextColor(ContextCompat.getColor(context, R.color.duskYellow));
-                tv_opening_hour.setText("Order Ahead");
+                tv_opening_hour.setText(R.string.order_ahead);
             }
 
 
