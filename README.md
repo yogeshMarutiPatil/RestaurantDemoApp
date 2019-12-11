@@ -1,5 +1,5 @@
 # RestaurantDemoApp 
-This app folows a MVP architecture pattern.This android app retrieves a set of restaurants from a json file stored in the assets folder and visualize them using a recycler view. One can sort the restaurant list based on it’s current openings state, you can favourite a restaurant and you can select a sort value to further sort the list. You can also search for restaurant word by word using a search bar provided.
+This app folows a MVP architecture pattern. This android app retrieves a set of restaurants from a json file stored in the assets folder and visualize them using a recycler view. One can sort the restaurant list based on it’s current openings state, you can favourite a restaurant and you can select a sort value to further sort the list. You can also search for restaurant word by word using a search bar provided.
 
 Basic things considered while making this app:
 
