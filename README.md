@@ -35,11 +35,11 @@ Steps to run the project
 2. Open Android Studio-> File-> Open-> Select android directory.
 
 
-###ScreenShots:
+"ScreenShots of App"
 
-![](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp.jpg| width=100)
+![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp.jpg)
 
-![](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp1.jpg| width=100)
+![alt text](https://github.com/yogeshMarutiPatil/RestaurantDemoApp/edit/master/RestaurantApp1.jpg)
 
 
 
